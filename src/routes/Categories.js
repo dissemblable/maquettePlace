@@ -19,7 +19,7 @@ export const CategoriesRouter = (db) =>
 .get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [results] = await db.query(`SELECT * FROM Categories WHERE id = ${id}`); // Injection SQL possible ici
+    const [results] = await db.query(`SELECT * FROM Categories WHERE id = ${id}`);
     res.json(results);
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la récupération de la categorie." });
@@ -29,7 +29,7 @@ export const CategoriesRouter = (db) =>
 .post("/", async (req, res) => {
   const { nom } = req.body;
   try {
-    const [results] = await db.query(`INSERT INTO Categories (nom) VALUES ('${nom}')`); // Injection SQL possible ici
+    const [results] = await db.query(`INSERT INTO Categories (nom) VALUES ('${nom}')`);
     res.status(201).json({ id: results.insertId, ...req.body });
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la création de la categorie." });
@@ -40,7 +40,7 @@ export const CategoriesRouter = (db) =>
   const { id } = req.params;
   const { nom } = req.body;
   try {
-    const [results] = await db.query(`UPDATE Categories SET nom = '${nom}' WHERE id = ${id}`); // Injection SQL possible ici
+    const [results] = await db.query(`UPDATE Categories SET nom = '${nom}' WHERE id = ${id}`); 
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la mise à jour de la categorie." });
   }
@@ -49,7 +49,7 @@ export const CategoriesRouter = (db) =>
 .delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [results] = await db.query(`DELETE FROM Categories WHERE id = ${id}`); // Injection SQL possible ici
+    const [results] = await db.query(`DELETE FROM Categories WHERE id = ${id}`);
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la suppression de la Categorie." });
   }

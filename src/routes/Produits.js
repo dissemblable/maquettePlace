@@ -19,7 +19,7 @@ export const ProduitsRouter = (db) =>
   .get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`SELECT * FROM Produits WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`SELECT * FROM Produits WHERE id = ${id}`);
       res.json(results);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la récupération du produit." });
@@ -29,7 +29,7 @@ export const ProduitsRouter = (db) =>
   .post("/", async (req, res) => {
     const { nom, prix_unitaire, quantite_stock, categorie_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`INSERT INTO Produits (nom, prix_unitaire, quantite_stock, categorie_id, fournisseur_id) VALUES ('${nom}', ${prix_unitaire}, ${quantite_stock}, ${categorie_id}, ${fournisseur_id})`); // Injection SQL possible ici
+      const [results] = await db.query(`INSERT INTO Produits (nom, prix_unitaire, quantite_stock, categorie_id, fournisseur_id) VALUES ('${nom}', ${prix_unitaire}, ${quantite_stock}, ${categorie_id}, ${fournisseur_id})`);
       res.status(201).json({ id: results.insertId, ...req.body });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la création du produit." });
@@ -40,7 +40,7 @@ export const ProduitsRouter = (db) =>
     const { id } = req.params;
     const { nom, prix_unitaire, quantite_stock, categorie_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Produits SET nom = '${nom}', prix_unitaire = ${prix_unitaire}, quantite_stock = ${quantite_stock}, categorie_id = ${categorie_id}, fournisseur_id = ${fournisseur_id} WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`UPDATE Produits SET nom = '${nom}', prix_unitaire = ${prix_unitaire}, quantite_stock = ${quantite_stock}, categorie_id = ${categorie_id}, fournisseur_id = ${fournisseur_id} WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du produit." });
     }
@@ -49,7 +49,7 @@ export const ProduitsRouter = (db) =>
   .delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`DELETE FROM Produits WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`DELETE FROM Produits WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la suppression du produit." });
     }

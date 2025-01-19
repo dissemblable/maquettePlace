@@ -19,7 +19,7 @@ export const Produits_FournisseursRouter = (db) =>
   .get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`SELECT * FROM Produits_Fournisseurs WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`SELECT * FROM Produits_Fournisseurs WHERE id = ${id}`);
       res.json(results);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la récupération du produit_Fournisseurs." });
@@ -27,9 +27,9 @@ export const Produits_FournisseursRouter = (db) =>
   })
   
   .post("/", async (req, res) => {
-    const { nom, produit_id, fournisseur_id } = req.body;
+    const { produit_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`INSERT INTO Produits_Fournisseurs (nom, produit_id fournisseur_id) VALUES ('${nom}', ${produit_id}, ${fournisseur_id})`); // Injection SQL possible ici
+      const [results] = await db.query(`INSERT INTO Produits_Fournisseurs (nom, produit_id fournisseur_id) VALUES ('${produit_id}', ${fournisseur_id})`);
       res.status(201).json({ id: results.insertId, ...req.body });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la création du produit_Fournisseurs." });
@@ -38,9 +38,9 @@ export const Produits_FournisseursRouter = (db) =>
   
   .put("/:id", async (req, res) => {
     const { id } = req.params;
-    const { nom, produit_id, fournisseur_id } = req.body;
+    const { produit_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Produits_Fournisseurs SET nom = '${nom}', produit_id = ${produit_id}, fournisseur_id = ${fournisseur_id} WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`UPDATE Produits_Fournisseurs SET produit_id = '${produit_id}', fournisseur_id = ${fournisseur_id} WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du Produits_Fournisseurs." });
     }
@@ -49,7 +49,7 @@ export const Produits_FournisseursRouter = (db) =>
   .delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`DELETE FROM Produits_Fournisseurs WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`DELETE FROM Produits_Fournisseurs WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la suppression du Produits_Fournisseurs." });
     }

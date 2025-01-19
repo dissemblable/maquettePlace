@@ -19,7 +19,7 @@ export const CommandesRouter = (db) =>
   .get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`SELECT * FROM Commandes WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`SELECT * FROM Commandes WHERE id = ${id}`);
       res.json(results);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la récupération du Commande." });
@@ -29,7 +29,7 @@ export const CommandesRouter = (db) =>
   .post("/", async (req, res) => {
     const { nom, date_commande, client_id } = req.body;
     try {
-      const [results] = await db.query(`INSERT INTO Commandes (nom, date_commande, client_id) VALUES ('${nom}', ${date_commande}, ${client_id})`); // Injection SQL possible ici
+      const [results] = await db.query(`INSERT INTO Commandes (nom, date_commande, client_id) VALUES ('${nom}', ${date_commande}, ${client_id})`);
       res.status(201).json({ id: results.insertId, ...req.body });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la création du Commande." });
@@ -40,7 +40,7 @@ export const CommandesRouter = (db) =>
     const { id } = req.params;
     const { nom, date_commande, client_id } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Commandes SET nom = '${nom}', date_commande = ${date_commande}, client_id = ${client_id} WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`UPDATE Commandes SET nom = '${nom}', date_commande = ${date_commande}, client_id = ${client_id} WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du Commandes." });
     }
@@ -49,7 +49,7 @@ export const CommandesRouter = (db) =>
   .delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const [results] = await db.query(`DELETE FROM Commandes WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`DELETE FROM Commandes WHERE id = ${id}`);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la suppression du Commandes." });
     }
