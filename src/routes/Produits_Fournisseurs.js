@@ -28,22 +28,22 @@ export const Produits_FournisseursRouter = (db) =>
   })
   
   .post("/", async (req, res) => {
-    const { nom, produit_id, fournisseur_id } = req.body;
+    const {produit_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`INSERT INTO Produits_Fournisseurs (nom, produit_id fournisseur_id) VALUES (?, ?, ?)`,
-        [nom, produit_id, fournisseur_id]
+      const [results] = await db.query(`INSERT INTO Produits_Fournisseurs (produit_id fournisseur_id) VALUES (?, ?)`,
+        [produit_id, fournisseur_id]
       );
-      res.status(201).json({ id: results.insertId, nom, produit_id, fournisseur_id });
+      res.status(201).json({ id: results.insertId, produit_id, fournisseur_id });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la création du produit_Fournisseurs." });
     }
   })
   
   .put("/:id", async (req, res) => {
-    const { nom, produit_id, fournisseur_id } = req.body;
+    const { produit_id, fournisseur_id } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Produits_Fournisseurs SET nom = ?, produit_id = ?, fournisseur_id = ? WHERE id = ?`,
-        [nom, produit_id, fournisseur_id, req.params.id]
+      const [results] = await db.query(`UPDATE Produits_Fournisseurs SET produit_id = ?, fournisseur_id = ? WHERE id = ?`,
+        [produit_id, fournisseur_id, req.params.id]
       );
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du Produits_Fournisseurs." });
