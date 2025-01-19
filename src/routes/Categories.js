@@ -40,7 +40,7 @@ export const CategoriesRouter = (db) =>
   const { id } = req.params;
   const { nom } = req.body;
   try {
-    const [results] = await db.query(`UPDATE Categories SET nom = '${nom}', WHERE id = ${id}`); // Injection SQL possible ici
+    const [results] = await db.query(`UPDATE Categories SET nom = '${nom}' WHERE id = ${id}`); // Injection SQL possible ici
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la mise à jour de la categorie." });
   }

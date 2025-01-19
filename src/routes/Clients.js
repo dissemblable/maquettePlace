@@ -40,7 +40,7 @@ export const ClientsRouter = (db) =>
     const { id } = req.params;
     const { nom, adresse, email, telephone } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Clients SET nom = '${nom}', adresse = ${adresse}, email = ${email}, telephone = ${telephone}, WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`UPDATE Clients SET nom = '${nom}', adresse = ${adresse}, email = ${email}, telephone = ${telephone} WHERE id = ${id}`); // Injection SQL possible ici
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du Clients." });
     }

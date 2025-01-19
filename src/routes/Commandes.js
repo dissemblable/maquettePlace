@@ -1,0 +1,56 @@
+import { Router } from "express";
+
+/**
+ *
+ * @param {import("mysql2/promise").Connection} db
+ * @returns {import("express").Router()}
+ */
+export const CommandesRouter = (db) =>
+  Router()
+  .get("/", async (req, res) => {
+    try {
+      const [results] = await db.query("SELECT * FROM Commandes");
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({ error: "Erreur lors de la récupération des Commandes." });
+    }
+  })
+  
+  .get("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const [results] = await db.query(`SELECT * FROM Commandes WHERE id = ${id}`); // Injection SQL possible ici
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({ error: "Erreur lors de la récupération du Commande." });
+    }
+  })
+  
+  .post("/", async (req, res) => {
+    const { nom, date_commande, client_id } = req.body;
+    try {
+      const [results] = await db.query(`INSERT INTO Commandes (nom, date_commande, client_id) VALUES ('${nom}', ${date_commande}, ${client_id})`); // Injection SQL possible ici
+      res.status(201).json({ id: results.insertId, ...req.body });
+    } catch (err) {
+      res.status(500).json({ error: "Erreur lors de la création du Commande." });
+    }
+  })
+  
+  .put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const { nom, date_commande, client_id } = req.body;
+    try {
+      const [results] = await db.query(`UPDATE Commandes SET nom = '${nom}', date_commande = ${date_commande}, client_id = ${client_id} WHERE id = ${id}`); // Injection SQL possible ici
+    } catch (err) {
+      res.status(500).json({ error: "Erreur lors de la mise à jour du Commandes." });
+    }
+  })
+  
+  .delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const [results] = await db.query(`DELETE FROM Commandes WHERE id = ${id}`); // Injection SQL possible ici
+    } catch (err) {
+      res.status(500).json({ error: "Erreur lors de la suppression du Commandes." });
+    }
+  })
