@@ -17,9 +17,10 @@ export const ClientsRouter = (db) =>
   })
   
   .get("/:id", async (req, res) => {
-    const { id } = req.params;
     try {
-      const [results] = await db.query(`SELECT * FROM Clients WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`SELECT * FROM Clients WHERE id = ?`,
+        [req.params.id]
+      );
       res.json(results);
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la récupération du Client." });
@@ -29,27 +30,31 @@ export const ClientsRouter = (db) =>
   .post("/", async (req, res) => {
     const { nom, adresse, email, telephone } = req.body;
     try {
-      const [results] = await db.query(`INSERT INTO Clients (nom, adresse, email, telephone) VALUES ('${nom}', ${adresse}, ${email}, ${telephone})`); // Injection SQL possible ici
-      res.status(201).json({ id: results.insertId, ...req.body });
+      const [results] = await db.query(`INSERT INTO Clients (nom, adresse, email, telephone) VALUES (?, ?, ?, ?)`,
+        [nom, adresse, email, telephone]
+      ); 
+      res.status(201).json({ id: results.insertId, nom, adresse, email, telephone });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la création du client." });
     }
   })
   
   .put("/:id", async (req, res) => {
-    const { id } = req.params;
     const { nom, adresse, email, telephone } = req.body;
     try {
-      const [results] = await db.query(`UPDATE Clients SET nom = '${nom}', adresse = ${adresse}, email = ${email}, telephone = ${telephone} WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`UPDATE Clients SET nom = ?, adresse = ?, email = ?, telephone = ? WHERE id = ?`,
+        [nom, adresse, email, telephone, req.params.id]
+      );
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la mise à jour du Clients." });
     }
   })
   
   .delete("/:id", async (req, res) => {
-    const { id } = req.params;
     try {
-      const [results] = await db.query(`DELETE FROM Clients WHERE id = ${id}`); // Injection SQL possible ici
+      const [results] = await db.query(`DELETE FROM Clients WHERE id = ?`,
+        [req.params.id]
+      );
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la suppression du Clients." });
     }
