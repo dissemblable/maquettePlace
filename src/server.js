@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import mysql from "mysql2/promise";
-import { apiRouter } from "./routes/api.js";
+import {CategoriesRouter} from "./routes/Categories.js";
 
 const app = express();
 const port = 3001;
@@ -20,5 +20,5 @@ console.log("Server is running on port 3001")
 app
   .use(cors())
   .use(express.json())
-  .use("/api/test", apiRouter(connection))
+  .use("/api/categories", CategoriesRouter(connection))
   .listen(port);

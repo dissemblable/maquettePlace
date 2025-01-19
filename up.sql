@@ -55,3 +55,11 @@ CREATE TABLE Lignes_Commandes (
     FOREIGN KEY (commande_id) REFERENCES Commandes(id),
     FOREIGN KEY (produit_id) REFERENCES Produits(id)
 );
+
+-- Table de jointure entre Produits et Fournisseurs
+CREATE TABLE Produits_Fournisseurs (
+    produit_id INT,
+    fournisseur_id INT,
+    FOREIGN KEY (produit_id) REFERENCES Produits(id),
+    FOREIGN KEY (fournisseur_id) REFERENCES Fournisseurs(id)
+);
