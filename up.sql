@@ -1,15 +1,15 @@
 -- Création de la base de données
-CREATE DATABASE GestionStock;
+CREATE DATABASE IF NOT EXISTS GestionStock;
 USE GestionStock;
 
 -- Table Catégories
-CREATE TABLE Categories (
+CREATE TABLE IF NOT EXISTS Categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL
 );
 
 -- Table Fournisseurs
-CREATE TABLE Fournisseurs (
+CREATE TABLE IF NOT EXISTS Fournisseurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     adresse TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE Fournisseurs (
 );
 
 -- Table Produits
-CREATE TABLE Produits (
+CREATE TABLE IF NOT EXISTS Produits (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     prix_unitaire DECIMAL(10, 2) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Produits (
 );
 
 -- Table Clients
-CREATE TABLE Clients (
+CREATE TABLE IF NOT EXISTS Clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     adresse TEXT,
@@ -38,7 +38,7 @@ CREATE TABLE Clients (
 );
 
 -- Table Commandes
-CREATE TABLE Commandes (
+CREATE TABLE IF NOT EXISTS Commandes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_commande DATE NOT NULL,
     client_id INT,
@@ -46,7 +46,7 @@ CREATE TABLE Commandes (
 );
 
 -- Table Lignes_Commandes
-CREATE TABLE Lignes_Commandes (
+CREATE TABLE IF NOT EXISTS Lignes_Commandes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     commande_id INT,
     produit_id INT,
@@ -57,7 +57,7 @@ CREATE TABLE Lignes_Commandes (
 );
 
 -- Table de jointure entre Produits et Fournisseurs
-CREATE TABLE Produits_Fournisseurs (
+CREATE TABLE IF NOT EXISTS Produits_Fournisseurs (
     produit_id INT,
     fournisseur_id INT,
     FOREIGN KEY (produit_id) REFERENCES Produits(id),
