@@ -26,6 +26,25 @@ export const CommandesRouter = (db) =>
       res.status(500).json({ error: "Erreur lors de la récupération du Commande." });
     }
   })
+
+  .get("/", async (req, res) => {
+    const { start, end } = req.query;
+
+    if (!start || !end) {
+      return res.status(400).json({
+        error: "Les paramètres 'start' et 'end' sont requis.",
+      });
+    }
+    try {
+      const [results] = await db.query("SELECT * FROM Commandes WHERE date_commande BETWEEN ? AND ?");
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({
+        error: "Erreur lors de la récupération des commandes.",
+      });
+    }
+  })
+
   
   .post("/", async (req, res) => {
     const { nom, date_commande, client_id } = req.body;
