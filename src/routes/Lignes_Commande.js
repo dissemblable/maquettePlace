@@ -5,7 +5,7 @@ import { Router } from "express";
  * @param {import("mysql2/promise").Connection} db
  * @returns {import("express").Router()}
  */
-export const Lignes_CommandessRouter = (db) =>
+export const Lignes_CommandesRouter = (db) =>
   Router()
   .get("/", async (req, res) => {
     try {
